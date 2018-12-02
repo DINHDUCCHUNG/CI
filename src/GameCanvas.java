@@ -8,14 +8,15 @@ public class GameCanvas extends JPanel {
     public GameCanvas() {
         this.background = new Background();
         this.player = new Player();
+
     }
 
     @Override
     public void paint(Graphics g) {
         g.setColor(Color.WHITE);
-        g.fillRect(0,0,800,600);
-        g.drawImage(this.background.image, this.background.x, this.background.y, null);
-        g.drawImage(this.player.image, this.player.x, this.player.y, null);
+        g.fillRect(0,0,Setting.SCREEN_WIDTH,Setting.SCREEN_HEIGHT);
+        g.drawImage(this.background.image, (int)this.background.position.x, (int)this.background.position.y, null);
+        g.drawImage(this.player.image, (int)this.player.position.x, (int)this.player.position.y, null);
     }
 
     public void runAll() {
@@ -31,7 +32,8 @@ public class GameCanvas extends JPanel {
         long lastTimeRun = 0;
         while (true) {
             long currentTime = System.currentTimeMillis();
-            if (currentTime - lastTimeRun > 1000 / 60) {
+            if (currentTime - lastTimeRun > Setting.TIMEPERPRAME) {
+                System.out.println(currentTime-lastTimeRun);
                 runAll();//logic game
                 renderAll();//hien thi game
                 lastTimeRun = currentTime;

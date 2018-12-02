@@ -3,12 +3,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class GameWindow extends JFrame {
-    public static boolean isUpPress;
-    public static boolean isDownPress, isLeftPress, isRightPress;
+    public static boolean isUpPress, isDownPress, isLeftPress, isRightPress, isShootPress;
 
     public GameWindow() {
         this.setTitle("Touhou");
-        this.setSize(800, 600);
+        //this.setSize(800, 600);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.addKeyListener(new KeyAdapter() {
@@ -19,14 +18,17 @@ public class GameWindow extends JFrame {
                     //System.out.println("Nut W");
                     isUpPress = true;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_S){
-                    isDownPress=true;
+                if (e.getKeyCode() == KeyEvent.VK_S) {
+                    isDownPress = true;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_A){
-                    isLeftPress=true;
+                if (e.getKeyCode() == KeyEvent.VK_A) {
+                    isLeftPress = true;
                 }
-                if (e.getKeyCode() == KeyEvent.VK_D){
-                    isRightPress=true;
+                if (e.getKeyCode() == KeyEvent.VK_D) {
+                    isRightPress = true;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    isShootPress = true;
                 }
             }
 
@@ -44,6 +46,9 @@ public class GameWindow extends JFrame {
                 }
                 if (e.getKeyCode() == KeyEvent.VK_D) {
                     isRightPress = false;
+                }
+                if (e.getKeyCode() == KeyEvent.VK_SPACE){
+                    isShootPress = false;
                 }
             }
         });

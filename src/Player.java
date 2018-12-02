@@ -1,40 +1,40 @@
 import java.awt.image.BufferedImage;
 
+import tklibs.Mathx;
 import tklibs.SpriteUtils;
 
 public class Player {
     BufferedImage image;
-    int x, y;
+    Vector2D position;
 
     public Player() {
         this.image = SpriteUtils.loadImage("assets\\images\\players\\straight\\0.png");
-        this.x = 0;
-        this.y = 0;
+        this.position = new Vector2D(200, 300);
     }
 
     //logic
     public void run() {
         if (GameWindow.isUpPress) {
-            if (this.y > 0) {
-                this.y--;
-            }
+            this.position.addThis(0, -3);
         }
         if (GameWindow.isDownPress) {
-            int y = 560 - this.image.getHeight();
-            if (this.y < y) {
-                this.y++;
-            }
+            this.position.addThis(0, 3);
         }
         if (GameWindow.isRightPress) {
-            int x = Background.image.getWidth() - this.image.getWidth();
-            if (this.x < x) {
-                this.x++;
-            }
+            this.position.addThis(3, 0);
+
         }
         if (GameWindow.isLeftPress) {
-            if (this.x > 0) {
-                this.x--;
-            }
+            this.position.addThis(-3, 0);
         }
+        this.limitPlayerPosition();
+    }
+
+    public void limitPlayerPosition() {
+        //limit x(o0, background.image.width
+        float x = (float) Mathx.clamp(this.position.x, 0, Setting.BACKGROUND_WIDTH - Setting.PLAYER_WIDTH);
+        // limit y(0, background.image.height
+        float y = (float) Mathx.clamp(this.position.y, 0, Setting.SCREEN_HEIGHT - Setting.PLAYER_HEIGHT);
+        this.position.set(x, y);
     }
 }
