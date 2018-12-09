@@ -16,18 +16,19 @@ public class Animation extends Renderer {
     }
 
     int count = 0;
+
     @Override
     public void render(Graphics g, GameObject master) {
         BufferedImage image = this.images.get(this.currentImageIndex);
-        g.drawImage(image, (int) master.position.x, (int) master.position.y, null);
+        g.drawImage(image, (int) (master.position.x - image.getWidth() * master.anchor.x)
+                , (int) (master.position.y - image.getHeight() * master.anchor.y), null);
         count++;
         if (count > 10) {
             this.currentImageIndex++;
             if (this.currentImageIndex >= this.images.size()) {
                 this.currentImageIndex = 0;
             }
-            count =0;
+            count = 0;
         }
     }
-
 }

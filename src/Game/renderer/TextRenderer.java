@@ -3,16 +3,14 @@ package Game.renderer;
 import Game.GameObject;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class TextRenderer extends Renderer {
-    String string;
-    public TextRenderer(String string){
-        this.string = string;
+    String text;
+    public TextRenderer(String text){
+        this.text = text;
     }
     @Override
-    public void render(Graphics g, GameObject master){
-        g.drawString(this.string,(int)master.position.x,(int)master.position.y);
+    public void render(Graphics g, GameObject master) {
+        g.drawString(this.text,(int)master.position.x,(int)master.position.y);
     }
-
 }

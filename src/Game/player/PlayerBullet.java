@@ -1,5 +1,6 @@
-package Game;
+package Game.player;
 
+import Game.GameObject;
 import Game.renderer.Animation;
 import tklibs.SpriteUtils;
 
@@ -7,7 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class PlayerBullet extends GameObject{
+public class PlayerBullet extends GameObject {
     public PlayerBullet(){
         super();
         this.createRenderer();
