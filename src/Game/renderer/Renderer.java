@@ -1,10 +1,9 @@
-package Game.renderer;
+package game.renderer;
 
-import Game.GameObject;
+import game.GameObject;
 
 import java.awt.*;
 
 public abstract class Renderer {
-        abstract public void render(Graphics g, GameObject master);
-
+    public abstract void render(Graphics g, GameObject master);
 }

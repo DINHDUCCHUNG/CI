@@ -1,4 +1,4 @@
-package Game;
+package game;
 
 public class Vector2D {
     public float x;
@@ -20,41 +20,12 @@ public class Vector2D {
         return this;
     }
 
-    public float getLength() {
-        return (float) Math.sqrt(this.x * this.x + this.y * this.y);
-    }
-
-    public Vector2D setLength(float length) {
-        if (this.getLength() == 0) {
-            return this;
-        }
-        float rate = length / this.getLength();
-        this.x = this.x * rate;
-        this.y = this.y * rate;
-        return this;
-    }
-
-    public float getAngle() {
-        return (float) Math.atan(this.y / this.x);
-    }
-
-    public Vector2D setAngle(float angle) {
-        if (this.getLength() == 0) {
-            return this;
-        }
-        float length = this.getLength();
-        this.x = (float) (length * Math.cos(angle));
-        this.y = (float) (length * Math.sin(angle));
-        return this;
-    }
-
     public Vector2D set(Vector2D other) {
         return this.set(other.x, other.y);
     }
 
     public Vector2D add(float x, float y) {
-        Vector2D result = new Vector2D(this.x + x, this.y + y);
-        return result;
+        return new Vector2D(this.x + x, this.y + y);
     }
 
     public Vector2D add(Vector2D other) {
@@ -97,6 +68,56 @@ public class Vector2D {
         this.x *= rate;
         this.y *= rate;
         return this;
+    }
+
+    public float getLength() {
+        return (float)Math.sqrt(this.x * this.x
+                + this.y * this.y);
+    }
+
+    public Vector2D setLength(float length) {
+        if(this.getLength() == 0) {
+            return this;
+        }
+        float rate = length / this.getLength();
+        this.x = this.x * rate;
+        this.y = this.y * rate;
+        return this;
+    }
+
+    public float getAngle() {
+        return (float) Math.atan(this.y / this.x);
+    }
+
+    public Vector2D setAngle(float angle) {
+        float length = this.getLength();
+        this.x = length * (float)Math.cos(angle);
+        this.y = length * (float)Math.sin(angle);
+        return this;
+    }
+
+    public static void main(String []args) {
+        Vector2D v1 = new Vector2D(1, 1);
+        System.out.println(v1);
+        System.out.println(v1.getAngle());
+        v1.setAngle((float)Math.PI / 2);
+        System.out.println(v1);
+        System.out.println(v1.getAngle());
+        v1.setAngle((float)-Math.PI / 2);
+        System.out.println(v1);
+        System.out.println(v1.getAngle());
+    }
+
+    @Override
+    public String toString() {
+        return "game.Vector2D{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
+
+    public void printThis() {
+        System.out.println(this);
     }
 
 }

@@ -1,29 +1,30 @@
-package Game.player;
+package game.player;
 
-import Game.GameObject;
-import Game.renderer.Animation;
+import game.GameObject;
+import game.renderer.AnimationRenderer;
 import tklibs.SpriteUtils;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class PlayerBullet extends GameObject {
-    public PlayerBullet(){
+    public PlayerBullet() {
         super();
         this.createRenderer();
-       // this.image = SpriteUtils.loadImage("assets\\images\\player-bullets\\a\\1.png");
+        this.velocity.set(0, -3);
     }
-    private void createRenderer(){
+
+    private void createRenderer() {
         ArrayList<BufferedImage> images = new ArrayList<>();
         images.add(SpriteUtils.loadImage("assets/images/player-bullets/a/0.png"));
         images.add(SpriteUtils.loadImage("assets/images/player-bullets/a/1.png"));
         images.add(SpriteUtils.loadImage("assets/images/player-bullets/a/2.png"));
         images.add(SpriteUtils.loadImage("assets/images/player-bullets/a/3.png"));
-        this.renderer= new Animation(images);
+        this.renderer = new AnimationRenderer(images);
     }
+
     @Override
     public void run() {
-        this.position.addThis(0,-10);
+        super.run();
     }
 }

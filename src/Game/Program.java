@@ -1,4 +1,4 @@
-package Game;
+package game;
 
 import java.awt.*;
 
@@ -9,10 +9,13 @@ public class Program {
     public static void main(String[] args) {
         GameWindow gameWindow = new GameWindow();
         GameCanvas gameCanvas = new GameCanvas();
-        gameCanvas.setPreferredSize(new Dimension(Setting.SCREEN_WIDTH,Setting.SCREEN_HEIGHT));
+
+//        gameCanvas.setSize(800, 600);
+        gameCanvas.setPreferredSize(new Dimension(800, 600));
         gameWindow.add(gameCanvas);
         gameWindow.pack();
         gameWindow.setVisible(true);
+
         gameCanvas.gameLoop();
     }
 }
