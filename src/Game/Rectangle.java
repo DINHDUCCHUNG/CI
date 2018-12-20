@@ -16,36 +16,28 @@ public class Rectangle {
     }
 
     /**
-     * @param other
+     * @param
      * @return false: nếu 2 hình chữ nhật ko giao nhau
      */
+    public float top(){
+        return this.position.y;
+    }
+    public float bot(){
+        return this.top() + this.height;
+    }
+    public float left(){
+        return this.position.x;
+    }
+    public float right(){
+        return this.left() + this.width;
+    }
     public boolean intersects(Rectangle other) {
         // TODO: 1. Triển khai phần code kiểm tra va chạm giữa 2 hình chữ nhật ở đây
-        float x = this.position.x;
-        float y = this.position.y;
-        float x1 = other.position.x;
-        float y1 = other.position.x;
-        if (x > x1 && y > y1) {
-            if (x1 + other.width > x && y1 + other.height > y) {
-                return true;
-            }
-        }
-        if (x > x1 && y < y1) {
-            if (x1 + other.width > x && y1 < y + this.height) {
-                return true;
-            }
-        }
-        if (x < x1 && y > y1) {
-            if (x1 < x + this.width && y1 + other.height > y) {
-                return true;
-            }
-        }
-        if (x < x1 && y < y1) {
-            if (x1 < x + this.width && y1 < y + this.height) {
-                return true;
-            }
-        }
-        return false;
+        return this.left() <= other.right()
+                && other.left() <= this.right()
+                && this.top() <= other.bot()
+                && other.top() <= this.bot();
+
     }
 
     //TODO: 2. Chạy hàm main này để test

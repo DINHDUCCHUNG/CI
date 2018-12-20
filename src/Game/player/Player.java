@@ -1,6 +1,8 @@
 package game.player;
 
 import game.*;
+import game.physics.BoxCollider;
+import game.physics.Physics;
 import game.renderer.AnimationRenderer;
 import tklibs.Mathx;
 import tklibs.SpriteUtils;
@@ -8,14 +10,15 @@ import tklibs.SpriteUtils;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Player extends GameObject {
+public class Player extends GameObject implements Physics {
     FrameCounter fireCounter;
-
+    BoxCollider boxCollider;
     public Player(){
         super();
         this.position.set(200, 300);
         this.createRenderer();
         this.fireCounter = new FrameCounter(20);
+        this.boxCollider = new BoxCollider(this.position,this.anchor,20,20);
     }
 
     private void createRenderer() {
@@ -63,9 +66,8 @@ public class Player extends GameObject {
 
     private void fire() {
         if(GameWindow.isFirePress) {
-            PlayerBullet bullet = new PlayerBullet();
+            PlayerBullet bullet = GameObject.recycle(PlayerBullet.class);
             bullet.position.set(this.position.x, this.position.y);
-            GameObject.addGameObject(bullet);
             this.fireCounter.reset();
         }
     }
@@ -84,5 +86,10 @@ public class Player extends GameObject {
                 , Settings.SCREEN_HEIGHT - halfHeight);
 
         this.position.set(x, y);
+    }
+
+    @Override
+    public BoxCollider getBoxCollider() {
+        return this.boxCollider;
     }
 }
