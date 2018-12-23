@@ -2,6 +2,7 @@ package game.enemy;
 
 import game.FrameCounter;
 import game.GameObject;
+import game.GameObjectPhysics;
 import game.Settings;
 import game.physics.BoxCollider;
 import game.physics.Physics;
@@ -11,15 +12,14 @@ import tklibs.SpriteUtils;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Enemy extends GameObject implements Physics {
-    BoxCollider boxCollider;
+public class Enemy extends GameObjectPhysics {
     FrameCounter fireCounter;
     public Enemy() {
         super();
         this.createRenderer();
         this.position.set(0, -30);
         this.velocity.set(3, -1);
-        this.fireCounter = new FrameCounter(30);
+        this.fireCounter = new FrameCounter(20);
         this.boxCollider = new BoxCollider(this.position,this.anchor,20,20);
     }
 
@@ -33,14 +33,20 @@ public class Enemy extends GameObject implements Physics {
     }
     private void fire(){
         EnemyBullet bullet = GameObject.recycle(EnemyBullet.class);
-        bullet.position.set(this.position.x,this.position.y);
+        bullet.position.set(this.position);
         this.fireCounter.reset();
     }
     @Override
     public void run() {
         super.run();
+        this.move();
+        if(this.fireCounter.run()){
+            this.fire();
+        }
+    }
+    private void move(){
         if(this.position.x > Settings.BACKGROUND_WIDTH - 14
-            && this.velocity.x > 0) {
+                && this.velocity.x > 0) {
             this.velocity.set(-3, this.velocity.y);
         }
         if(this.position.x < 14 && this.velocity.x < 0) {
@@ -54,14 +60,12 @@ public class Enemy extends GameObject implements Physics {
         if(this.position.y < 14 && this.velocity.y < 0) {
             this.velocity.set(this.velocity.x, 1);
         }
-        if(this.fireCounter.run()){
-            this.fire();
-        }
-
     }
 
     @Override
-    public BoxCollider getBoxCollider() {
-        return this.boxCollider;
+    public void destroy() {
+        super.destroy();
+        EnemyExplosion explosion = GameObject.recycle(EnemyExplosion.class);
+        explosion.position.set(this.position);
     }
 }

@@ -11,6 +11,7 @@ public class AnimationRenderer extends Renderer {
     ArrayList<BufferedImage> images;
     int currentImageIndex;
     FrameCounter nextImageCounter;
+    boolean isOnce;
 
     public AnimationRenderer(ArrayList<BufferedImage> images) {
         this.images = images;
@@ -18,6 +19,10 @@ public class AnimationRenderer extends Renderer {
         this.nextImageCounter = new FrameCounter(5);
     }
 
+    public AnimationRenderer(ArrayList<BufferedImage> images,boolean isOnce){
+        this(images);
+        this.isOnce = isOnce;
+    }
     @Override
     public void render(Graphics g, GameObject master) {
         BufferedImage image = this.images.get(this.currentImageIndex);
@@ -30,6 +35,9 @@ public class AnimationRenderer extends Renderer {
 
         if(this.nextImageCounter.run()) { //true/false
             this.currentImageIndex++;
+            if (this.isOnce && this.currentImageIndex >= this.images.size()){
+                master.destroy();
+            }
             if(this.currentImageIndex >= this.images.size()) {
                 this.currentImageIndex = 0;
             }

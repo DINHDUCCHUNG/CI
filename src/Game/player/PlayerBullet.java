@@ -1,6 +1,7 @@
 package game.player;
 
 import game.GameObject;
+import game.GameObjectPhysics;
 import game.enemy.Enemy;
 import game.physics.BoxCollider;
 import game.physics.Physics;
@@ -10,8 +11,7 @@ import tklibs.SpriteUtils;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class PlayerBullet extends GameObject implements Physics {
-    BoxCollider boxCollider;
+public class PlayerBullet extends GameObjectPhysics {
     public PlayerBullet() {
         super();
         this.createRenderer();
@@ -31,7 +31,7 @@ public class PlayerBullet extends GameObject implements Physics {
     @Override
     public void run() {
         super.run();
-        if (this.position.y<-30){
+        if (this.position.y<0){
             this.destroy();
         }
         this.checkIntersect();
@@ -43,10 +43,5 @@ public class PlayerBullet extends GameObject implements Physics {
             this.destroy();
             enemy.destroy();
         }
-    }
-
-    @Override
-    public BoxCollider getBoxCollider() {
-        return this.boxCollider;
     }
 }

@@ -1,19 +1,17 @@
 package game;
 
 import game.enemy.Enemy;
+import game.enemy.EnemySummoner;
 import game.player.Player;
+import game.scene.SceneManage;
+import game.scene.SceneWelcome;
 
 import java.awt.*;
 import javax.swing.*;
 
 public class GameCanvas extends JPanel{
     public GameCanvas() {
-        GameObject.recycle(Background.class);
-        GameObject.recycle(Player.class);
-        GameObject.recycle(Enemy.class);
-        // arrayList.add()
-        // arrayList.get()
-        // arrayList.size()
+        SceneManage.signNewScene(new SceneWelcome());
     }
 
     @Override
